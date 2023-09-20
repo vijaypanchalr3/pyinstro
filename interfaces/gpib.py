@@ -50,6 +50,9 @@ class GPIB:
     def clear_status(self)-> None:
         self.interface.query("*CLS\n")
 
+    def close(self)->None:
+        self.interface.close()
+
     def std_event(self)->None:
         pass
 
