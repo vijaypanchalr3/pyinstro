@@ -8,6 +8,7 @@ if new_instance.get_connection()=="GPIB":
     class SR830(gpib.GPIB):
         def __init__(self) -> None:
             super().__init__()
+            file_init = datafile.Get_File(new_instance.get_file())
 
             # setup initial values
             self.set_frequency(new_instance.get_freq())
@@ -15,7 +16,9 @@ if new_instance.get_connection()=="GPIB":
             self.time_constant(new_instance.get_time_constant())   
             self.get_levels = new_instance.get_levels
             self.get_partitions = new_instance.get_partitions
-        
+            self.writerow = file_init.writerow
+            self.readrow = file_init.readrow
+
         def set_frequency(self, value, errdelay = 3) -> None:
             """change reference frequency"""
             self.device.write("FREQ "+"{:.1E}".format(value))
@@ -71,4 +74,11 @@ else:
         def __init__(self) -> None:
             super().__init__()
 
-            
+            file_init = datafile.Get_File(new_instance.get_file())
+
+            # setup initial values
+            self.get_levels = new_instance.get_levels
+            self.get_partitions = new_instance.get_partitions
+            self.writerow = file_init.writerow
+            self.readrow = file_init.readrow
+            pass

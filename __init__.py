@@ -1,1 +1,1 @@
-from . devices import sr830
+from pyinstro.devices import SR830

@@ -1,0 +1,1 @@
+from pyinstro.devices.sr830 import SR830
