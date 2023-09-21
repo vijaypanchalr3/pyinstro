@@ -25,7 +25,7 @@ class GPIB:
                         interface = resourceslist[choise]
                         break
                     except:
-                        cprint("choose with interger and choose from length, ,2,3...","red")
+                        cprint("choose with interger and from following...","red")
 
             # for resource in resources.list_resources():
             #     if re.compile(r'GPIB[0-9]::\b\d{1,2}\b::INSTR').search(resource):
@@ -42,13 +42,13 @@ class GPIB:
             sys.exit()
 
     def ping(self)-> None:
-        self.interface.query("*IDN?\n")
+        self.interface.write("*IDN?\n")
 
     def reset(self)-> None:
-        self.interface.query("*RST\n")
+        self.interface.write("*RST\n")
 
     def clear_status(self)-> None:
-        self.interface.query("*CLS\n")
+        self.interface.write("*CLS\n")
 
     def close(self)->None:
         self.interface.close()

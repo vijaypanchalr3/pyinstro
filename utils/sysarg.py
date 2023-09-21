@@ -1,7 +1,11 @@
 from pyinstro.utils import defaults
 
 
+
+
 import argparse
+
+
 
 
 class CLI:
@@ -12,36 +16,28 @@ class CLI:
         self.defaults = defaults.DefaultParams()
         self.argparser = argparse.ArgumentParser(
             prog='INSTRUMENT CONTROLLER',
-            description='This program is controller for lock in amplifier',
-            epilog=' for more help visit https://github.com/vijaypanchalr3 \n for more help on SR830 check manual of SR830',
-            formatter_class=argparse.RawDescriptionHelpFormatter)
+            description='This program is controller for instument in the lab with SCPI support',
+            epilog=' for more help visit https://github.com/vijaypanchalr3 \n for more help on SR830 check manual of SR830')
         self.arguments()
         self.args = self.argparser.parse_args()
         
         
     def arguments(self) ->None:
         self.argparser.add_argument('-f','--file', metavar='*.csv', type=str, default="default", help="give an file to write data")
-        self.argparser.add_argument('-fl','--fmin', type=float, default=self.defaults.fmin, help="give lower limit for reference frequency")
-        self.argparser.add_argument('-fr','--freq', type=float, default=1E3, help="give reference frequency")
-        self.argparser.add_argument('-fh','--fmax', type=float, default=self.defaults.fmax, help="give upper limit for reference frequency")
-        self.argparser.add_argument('-pa','--partitions',type=int, default=self.defaults.partitions, help="give partition for frequency division")
-        self.argparser.add_argument('-le','--level', type=int, default=self.defaults.levels, help="similar to levels it take increases partitions and resolution")
-        self.argparser.add_argument('-tc', '--timeconst', metavar='', type=int, choices=range(1,20), default=self.defaults.time_constant, help="choose timeconstant from manual from following choises  "+str(tuple(range(1,20))))
-        self.argparser.add_argument('-se', '--sensitivity', metavar='', type=int, choices=range(1,27), default=self.defaults.sensitivity, help="choose sensitivity from following choises  "+str(tuple(range(1,27))))
-        self.argparser.add_argument('-sr', '--samplerate', metavar='', type=int, choices=range(1,15), default=self.defaults.sample_rate, help="sample rate for output sampling from following choises  "+str(tuple(range(1,15))))
-        self.argparser.add_argument('-dt', '--data', metavar='', type=int,choices=range(1,5),default=self.defaults.data, help="give default data variable from following choises  "+str(tuple(range(1,5))))
+        self.argparser.add_argument('-pa','--partitions', metavar='',type=int, default=self.defaults.partitions, help="give partition for frequency division")
+        self.argparser.add_argument('-le','--level', metavar='', type=int, default=self.defaults.levels, help="similar to levels it take increases partitions and resolution")
+        self.argparser.add_argument('-tc', '--timeconst', metavar='', type=int, choices=range(1,20), default=self.defaults.time_constant, help="choose time constant from manual from following choises:  "+" ".join([str(x) for x in range(1,21)]))
+        self.argparser.add_argument('-td', '--timedelay', metavar='', type=float, default=self.defaults.time_delay, help="choose time delay from manual from following choises  ")
+        self.argparser.add_argument('-se', '--sensitivity', metavar='', type=int, choices=range(1,27), default=self.defaults.sensitivity, help="choose sensitivity from following choises:  "+" ".join([str(x) for x in range(1,28)]))
+        self.argparser.add_argument('-sr', '--samplerate', metavar='', type=int, choices=range(1,15), default=self.defaults.sample_rate, help="sample rate for output sampling from following choises:  "+" ".join([str(x) for x in range(1,16)]))
+        self.argparser.add_argument('-dt', '--data', metavar='', type=int,choices=range(1,5),default=self.defaults.data, help="give default data variable from following choises:  "+" ".join([str(x) for x in range(1,6)]))
         self.argparser.add_argument('-bd', '--baud', metavar='', type=int, default=self.defaults.baud_rate, help="set baud rate for connection defaults to 9600")
-        self.argparser.add_argument('-c', '--connection', metavar='1:GPIB,2:RS232,3:LAN,4:USB', type=str, choices=range(1,5), default=self.defaults.connection, help="1: GPIB, 2: RS232, 3: USB, 4: LAN")
+        self.argparser.add_argument('-c', '--connection', metavar='', type=str, choices=range(1,5), default=self.defaults.connection, help="1: GPIB, 2: RS232, 3: USB, 4: LAN")
 
 
     def get_file(self) -> str:
         return self.args.file   
 
-    def get_fmin(self) -> float:
-        return self.args.fmin
-    
-    def get_fmax(self) -> float:
-        return self.args.fmax
     
     def get_partitions(self)->int:
         return self.args.partitions
