@@ -9,6 +9,7 @@ from termcolor import cprint
 class GPIB:
     def __init__(self) -> None:                                 
         try:                        # GPIB connection check
+            cprint("-----------checking GPIB connections--------",color="yellow")
             resources = pyvisa.ResourceManager()
             interface = None
             resourceslist = resources.list_resources()
@@ -23,6 +24,9 @@ class GPIB:
                         if choise>len(resourceslist):
                             TypeError
                         interface = resourceslist[choise]
+                        cprint("-------------chose resource-----------------",color="green",attrs=["bold"])
+                        cprint("-------following device is connected--------",color="green",attrs=["bold"])
+                        self.ping()
                         break
                     except:
                         cprint("choose with interger and from following...","red")
