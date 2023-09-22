@@ -9,7 +9,7 @@ import os
 
 class Get_File:
     """
-    INFO:  just to write file, must be CSV 
+    INFO: just to write file, must be CSV 
     """
     def __init__(self,file) -> None:
         _project_dir_path_abs = getpath.getpath()

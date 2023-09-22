@@ -48,6 +48,9 @@ class GPIB:
     def ping(self)-> None:
         self.interface.write("*IDN?\n")
 
+    def read(self)-> None:
+        self.interface.read()
+
     def reset(self)-> None:
         self.interface.write("*RST\n")
 

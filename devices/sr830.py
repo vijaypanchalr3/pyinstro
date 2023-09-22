@@ -19,6 +19,7 @@ if new_instance.get_connection()=="GPIB":
             self.get_partitions = new_instance.get_partitions
             self.writerow = file_init.writerow
             self.longwriterow = file_init.longwriterow
+            
 
         def local_defaults(self)-> None:
             pass
@@ -102,6 +103,20 @@ else:
             self.writerow = file_init.writerow
             self.readrow = file_init.readrow
             pass
+
+        def local_defaults(self)-> None:
+            pass
+
+        def local_arguments(self)-> None:
+            new_instance.argparser.add_argument('-fl','--fmin', metavar='', type=float, default=4545, help="give lower limit for reference frequency")
+            new_instance.argparser.add_argument('-fr','--freq', metavar='', type=float, default=7888, help="give reference frequency")
+            new_instance.argparser.add_argument('-fh','--fmax', metavar='', type=float, default=1, help="give upper limit for reference frequency")
+
+        def get_fmin(self) -> float:
+            return new_instance.args.fmin
+    
+        def get_fmax(self) -> float:
+            return new_instance.args.fmax
         
         def set_frequency(self, value, errdelay = 3) -> None:
             pass
