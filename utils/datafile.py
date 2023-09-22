@@ -34,16 +34,34 @@ class Get_File:
             file = file+".csv"
         else:
             pass
-        self.file = open(file,'w',newline='')
-        self.writer = csv.writer(self.file)
+        
+        self.filepath = file
+        self.firsttime = True
 
     def writerow(self, data)-> None:
-        self.writer.writerow(data)
-        
+        """
+        open file one time ad write it
+        """
+        if self.firsttime:
+            self.file = open(self.filepath,'w',newline='')
+            self.writer = csv.writer(self.file)
+            self.writer.writerow(data)
+            self.firsttime = False
+            print(self.filepath)
+        else:
+            self.writer.writerow(data)
+
+
+    def longwriterow(self,data)->None:
+        """
+        for long data, i think it is suitable to write file each time open and close
+        """
+        with open(self.filepath,'a',newline="") as datafile:
+            self.writer = csv.writer(datafile)
+            self.writer.writerow(data)
+
+            
     
 
 
-if __name__=="__main__":
-    x = Get_File('new.csv')
-    x.writerow(['test','ok'])
     

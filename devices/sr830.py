@@ -18,6 +18,7 @@ if new_instance.get_connection()=="GPIB":
             self.get_levels = new_instance.get_levels
             self.get_partitions = new_instance.get_partitions
             self.writerow = file_init.writerow
+            self.longwriterow = file_init.longwriterow
 
         def local_defaults(self)-> None:
             pass
