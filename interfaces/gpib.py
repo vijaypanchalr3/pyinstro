@@ -1,7 +1,10 @@
+# GPIB interface
+
+
+
 import pyvisa
 import sys
 from termcolor import cprint
-# import re
 
 
 
@@ -26,19 +29,10 @@ class GPIB:
                         interface = resourceslist[choise]
                         cprint("-------------chose resource-----------------",color="green",attrs=["bold"])
                         cprint("-------following device is connected--------",color="green",attrs=["bold"])
-                        self.ping()
+                        cprint(interface)
                         break
                     except:
                         cprint("choose with interger and from following...","red")
-
-            # for resource in resources.list_resources():
-            #     if re.compile(r'GPIB[0-9]::\b\d{1,2}\b::INSTR').search(resource):
-            #         if re.split('::',resource)[1]==self.connection:
-            #             interface = resource
-            #             break
-            #         else:
-            #             interface = resource
-
 
             self.interface =  resources.open_resource(interface)
         except:
@@ -63,6 +57,3 @@ class GPIB:
     def std_event(self)->None:
         pass
 
-if __name__=="__main__":
-    x = GPIB()
-    

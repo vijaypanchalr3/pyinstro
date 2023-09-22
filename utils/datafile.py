@@ -19,7 +19,7 @@ class Get_File:
         else:
             os.mkdir(os.path.join(_project_dir_path_abs,"data"))
             _data_dir_path_abs = os.path.join(_project_dir_path_abs,"data")
-        # print(_data_dir_path_abs)
+        
         if file=='default':
             file = "auto0.csv"
             count = 0

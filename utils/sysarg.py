@@ -35,6 +35,9 @@ class CLI:
         self.argparser.add_argument('-bd', '--baud', metavar='', type=int, default=_defaults.baud_rate, help="set baud rate for connection defaults to 9600")
         self.argparser.add_argument('-c', '--connection', metavar='', type=str, choices=range(1,5), default=_defaults.connection, help="1: GPIB, 2: RS232, 3: USB, 4: LAN")
         self.argparser.add_argument('--makeconfig', action="store_true", default=False ,help="this will make your custom config file")
+        self.argparser.add_argument('-fl','--fmin', metavar='', type=float, default=4545, help="give lower limit for reference frequency")
+        self.argparser.add_argument('-fr','--freq', metavar='', type=float, default=7888, help="give reference frequency")
+        self.argparser.add_argument('-fh','--fmax', metavar='', type=float, default=1, help="give upper limit for reference frequency")
 
     def get_file(self) -> str:
         return self.args.file   
@@ -46,7 +49,13 @@ class CLI:
         else:
             pass
 
-
+    
+    def get_fmin(self) -> float:
+        return self.args.fmin
+    
+    def get_fmax(self) -> float:
+        return self.args.fmax
+    
     def get_partitions(self)->int:
         return self.args.partitions
     
