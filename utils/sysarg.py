@@ -8,15 +8,6 @@ import argparse
 
 _defaults = defaults.DefaultParams()
 
-class makeconfig(argparse.Action):
-    def __init__(self, option_strings, dest, nargs=None, **kwargs):
-        if nargs is not None:
-            raise ValueError("nargs not allowed")
-        super().__init__(option_strings, dest, **kwargs)
-    def __call__(self, parser, namespace, values, option_string=None):
-        print('%r %r %r' % (namespace, values, option_string))
-        _defaults.makeconfig()
-        setattr(namespace, self.dest, values)
 
 class CLI:
     """
@@ -30,7 +21,7 @@ class CLI:
             epilog=' for more help visit https://github.com/vijaypanchalr3 \n for more help on SR830 check manual of SR830')
         self.arguments()
         self.args = self.argparser.parse_args()
-        
+        self.make_config()
         
     def arguments(self) ->None:
         self.argparser.add_argument('-f','--file', metavar='*.csv', type=str, default="default", help="give an file to write data")
@@ -43,12 +34,19 @@ class CLI:
         self.argparser.add_argument('-dt', '--data', metavar='', type=int,choices=range(1,5),default=_defaults.data, help="give default data variable from following choises:  "+" ".join([str(x) for x in range(1,6)]))
         self.argparser.add_argument('-bd', '--baud', metavar='', type=int, default=_defaults.baud_rate, help="set baud rate for connection defaults to 9600")
         self.argparser.add_argument('-c', '--connection', metavar='', type=str, choices=range(1,5), default=_defaults.connection, help="1: GPIB, 2: RS232, 3: USB, 4: LAN")
-        self.argparser.add_argument('--makeconfig', action=makeconfig, default=1,help="this will make your custom config file")
+        self.argparser.add_argument('--makeconfig', action="store_true", default=False ,help="this will make your custom config file")
 
     def get_file(self) -> str:
         return self.args.file   
 
-    
+    def make_config(self)->None:
+        if self.args.makeconfig:
+            _defaults.makeconfig()
+            self.args.makeconfig = False
+        else:
+            pass
+
+
     def get_partitions(self)->int:
         return self.args.partitions
     
