@@ -1,6 +1,8 @@
 from pyinstro.utils import sysarg
 from pyinstro.utils import datafile
-from pyinstro.utils import defaults
+
+# -make local defaults for instruments-
+# from pyinstro.utils import defaults
 
 new_instance = sysarg.CLI()
 
@@ -81,7 +83,7 @@ if new_instance.get_connection()=="GPIB":
         
 else:
 
-    from core.interfaces import rs232
+    from pyinstro.interfaces import rs232
     
     class SR830(rs232.RS232):
         """
