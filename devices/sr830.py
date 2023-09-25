@@ -39,6 +39,9 @@ if new_instance.get_connection()=="GPIB":
             self.interface.write("FREQ "+"{:.4E}".format(value))
             pass
 
+        def autogain(self)->None:
+            self.interface.write("AGAN")
+
         def set_phase(self,value) -> None:
             self.interface.write("PHAS "+str(value))
             pass
@@ -119,6 +122,9 @@ else:
             return new_instance.args.fmax
         
         def set_frequency(self, value, errdelay = 3) -> None:
+            pass
+
+        def autogain(self):
             pass
 
         def set_phase(self,value) -> None:
